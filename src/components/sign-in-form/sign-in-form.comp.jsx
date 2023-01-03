@@ -4,6 +4,7 @@ import {
 	createUserDocumentFromAuth,
 	signInAuthUserWithEmailAndPassword,
 } from '../../utils/firebase/firebase.utils';
+
 import Button from '../button/button.comp';
 import FormInput from '../form-input/form-input.comp';
 
@@ -20,7 +21,7 @@ const SingInForm = () => {
 
 	const signInWithGoogle = async () => {
 		const response = await signInWithGooglePopup();
-		await createUserDocumentFromAuth(response.user);
+		createUserDocumentFromAuth(response.user);
 	};
 
 	const resetFormFields = () => {
@@ -31,12 +32,8 @@ const SingInForm = () => {
 		event.preventDefault();
 
 		try {
-			const response = await signInAuthUserWithEmailAndPassword(
-				email,
-				password
-			);
-			console.log(response);
-			// await createUserDocumentFromAuth(response.user, { displayName });
+			await signInAuthUserWithEmailAndPassword(email, password);
+
 			resetFormFields();
 		} catch (err) {
 			switch (err.code) {

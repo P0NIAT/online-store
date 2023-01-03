@@ -19,8 +19,6 @@ const SingUpForm = () => {
 	const [formFields, setFormFields] = useState(defaultFormField);
 	const { displayName, email, password, confirmPassword } = formFields;
 
-	console.log('formFields', formFields);
-
 	const resetFormFields = () => {
 		setFormFields(defaultFormField);
 	};
@@ -35,6 +33,7 @@ const SingUpForm = () => {
 				email,
 				password
 			);
+
 			await createUserDocumentFromAuth(response.user, { displayName });
 			resetFormFields();
 		} catch (err) {
