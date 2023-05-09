@@ -1,15 +1,24 @@
+import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
 import CategoriesPreview from '../categories-preview/categories-preview.comp';
 import Category from '../category/category.comp';
-
 import './shop.styles.scss';
 
+import { fetchCategoriesStart } from '../../store/categories/category.action';
+
 const Shop = () => {
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(fetchCategoriesStart());
+	}, [dispatch]);
 
 	return (
 		<Routes>
-			<Route index element={<CategoriesPreview/>} />
-			<Route path=':category' element={<Category/>} />
+			<Route index element={<CategoriesPreview />} />
+			<Route path=':category' element={<Category />} />
 		</Routes>
 	);
 };
