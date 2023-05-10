@@ -3,8 +3,9 @@
 }
 
 body {
-	margin: 0;
-	padding: 20px 40px;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 10px;
 	font-family: 'Fira Sans Extra Condensed', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -19,4 +20,10 @@ code {
 a {
 	text-decoration: none;
 	color: #000;
+}
+
+@media (min-width: 576px) {
+	body {
+		padding: 20px 40px;
+	}
 }

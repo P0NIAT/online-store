@@ -1,14 +1,32 @@
 .sign-up-container {
 	display: flex;
 	flex-direction: column;
-	width: 380px;
+	width: 280px;
+	margin-bottom: 50px;
 }
-
-h2 {
-	margin: 10px 0;
+.buttons-container {
+	display: flex;
+	flex-direction: column;
 }
-
 .buttons-container {
 	display: flex;
 	justify-content: space-between;
 }
+h2 {
+	margin: 20px 0;
+}
+
+ @media (min-width: 576px) {
+	.sign-up-container {
+	display: flex;
+	flex-direction: column;
+	width: 380px;
+	margin-bottom: 50px;
+}
+.buttons-container {
+	display: flex;
+	flex-direction: row;
+}
+
+
+ }

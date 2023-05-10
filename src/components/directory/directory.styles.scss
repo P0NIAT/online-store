@@ -1,7 +1,10 @@
-.categories-container {
-   width: 100%;
-   display: flex;
-   flex-wrap: wrap;
-   justify-content: space-between;
- }
- 
+
+@media (min-width: 576px) {
+  .categories-container {
+    width: 100%;
+     flex-wrap: wrap;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+}
