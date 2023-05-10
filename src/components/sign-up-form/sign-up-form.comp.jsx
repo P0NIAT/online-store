@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import {
-	createAuthUserWithEmailAndPassword,
-	createUserDocumentFromAuth,
-} from '../../utils/firebase/firebase.utils';
 import FormInput from '../form-input/form-input.comp';
 import Button from '../button/button.comp';
 
 import './sing-up-form.styles.scss';
+import { useDispatch } from 'react-redux';
+import { singUpStart } from '../../store/user/user.action';
 
 const defaultFormField = {
 	displayName: '',
@@ -18,6 +16,7 @@ const defaultFormField = {
 const SingUpForm = () => {
 	const [formFields, setFormFields] = useState(defaultFormField);
 	const { displayName, email, password, confirmPassword } = formFields;
+	const dispatch = useDispatch();
 
 	const resetFormFields = () => {
 		setFormFields(defaultFormField);
@@ -26,15 +25,13 @@ const SingUpForm = () => {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
-		if (password !== confirmPassword) return;
+		if (password !== confirmPassword) {
+			alert('Passwords do not match');
+			return;
+		}
 
 		try {
-			const response = await createAuthUserWithEmailAndPassword(
-				email,
-				password
-			);
-
-			await createUserDocumentFromAuth(response.user, { displayName });
+			dispatch(singUpStart(email, password, displayName));
 			resetFormFields();
 		} catch (err) {
 			if (err.code === 'auth/email-already-in-use') {
