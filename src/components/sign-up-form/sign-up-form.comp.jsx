@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import FormInput from '../form-input/form-input.comp';
 import Button from '../button/button.comp';
@@ -17,6 +18,7 @@ const SingUpForm = () => {
 	const [formFields, setFormFields] = useState(defaultFormField);
 	const { displayName, email, password, confirmPassword } = formFields;
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const resetFormFields = () => {
 		setFormFields(defaultFormField);
@@ -33,6 +35,7 @@ const SingUpForm = () => {
 		try {
 			dispatch(singUpStart(email, password, displayName));
 			resetFormFields();
+			navigate('/');
 		} catch (err) {
 			if (err.code === 'auth/email-already-in-use') {
 				alert('Cannot create user, email already in use');

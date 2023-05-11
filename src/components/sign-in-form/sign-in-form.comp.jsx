@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
 	emailSingStart,
@@ -19,9 +20,13 @@ const SingInForm = () => {
 	const [formFields, setFormFields] = useState(defaultFormField);
 	const { email, password } = formFields;
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const signInWithGoogle = async () => {
 		dispatch(googleSignInStart());
+		setTimeout(() => {
+			navigate('/');
+		}, 5000);
 	};
 
 	const resetFormFields = () => {
@@ -35,6 +40,7 @@ const SingInForm = () => {
 			// await signInAuthUserWithEmailAndPassword(email, password);
 			dispatch(emailSingStart(email, password));
 			resetFormFields();
+			navigate('/');
 		} catch (err) {
 			switch (err.code) {
 				case 'auth/wrong-password':
