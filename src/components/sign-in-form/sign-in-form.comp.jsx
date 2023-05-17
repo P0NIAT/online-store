@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
-	emailSingStart,
+	emailSingInStart,
 	googleSignInStart,
 } from '../../store/user/user.action';
 
@@ -38,7 +38,7 @@ const SingInForm = () => {
 
 		try {
 			// await signInAuthUserWithEmailAndPassword(email, password);
-			dispatch(emailSingStart(email, password));
+			dispatch(emailSingInStart(email, password));
 			resetFormFields();
 			navigate('/');
 		} catch (err) {
