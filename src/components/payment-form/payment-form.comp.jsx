@@ -60,6 +60,8 @@ const PaymentForm = () => {
 			if (paymentResult.paymentIntent.status === 'succeeded') {
 				alert('Payment Successful');
 			}
+
+
 		}
 	};
 
