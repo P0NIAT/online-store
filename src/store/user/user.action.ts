@@ -10,6 +10,7 @@ import {
 	ActionWithPayload,
 	withMatcher,
 } from '../../utils/reducer/reducer.utils';
+import { User } from 'firebase/auth';
 
 export type SetCurrentUser = ActionWithPayload<
 	USER_ACTION_TYPES.SET_CURRENT_USER,
@@ -42,7 +43,7 @@ export type SingUpStart = ActionWithPayload<
 
 export type SingUpSuccess = ActionWithPayload<
 	USER_ACTION_TYPES.SIGN_UP_SUCCESS,
-	{ user: UserData; additionalDetails: AdditionalInformation }
+	{ user: User; additionalDetails: AdditionalInformation }
 >;
 
 export type SignUpFailed = ActionWithPayload<
@@ -78,7 +79,7 @@ export const emailSingInStart = withMatcher(
 );
 
 export const singInSuccess = withMatcher(
-	(user: UserData): SingInSuccess =>
+	(user: UserData & { id: string }): SingInSuccess =>
 		createAction(USER_ACTION_TYPES.SING_IN_SUCCESS, user)
 );
 
@@ -97,7 +98,7 @@ export const singUpStart = withMatcher(
 );
 
 export const singUpSuccess = withMatcher(
-	(user: UserData, additionalDetails: AdditionalInformation): SingUpSuccess =>
+	(user: User, additionalDetails: AdditionalInformation): SingUpSuccess =>
 		createAction(USER_ACTION_TYPES.SIGN_UP_SUCCESS, { user, additionalDetails })
 );
 
