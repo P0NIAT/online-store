@@ -1,11 +1,13 @@
+import { useState, FormEvent, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { AuthError, AuthErrorCodes } from 'firebase/auth';
+
 import FormInput from '../form-input/form-input.comp';
 import Button from '../button/button.comp';
-
-import './sing-up-form.styles.scss';
-import { useDispatch } from 'react-redux';
 import { singUpStart } from '../../store/user/user.action';
+
+import { SignUpContainer, ButtonContainer } from './sing-up-form.styles';
 
 const defaultFormField = {
 	displayName: '',
@@ -24,7 +26,7 @@ const SingUpForm = () => {
 		setFormFields(defaultFormField);
 	};
 
-	const handleSubmit = async (event) => {
+	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
 		if (password !== confirmPassword) {
@@ -36,23 +38,23 @@ const SingUpForm = () => {
 			dispatch(singUpStart(email, password, displayName));
 			resetFormFields();
 			navigate('/');
-		} catch (err) {
-			if (err.code === 'auth/email-already-in-use') {
+		} catch (error) {
+			if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
 				alert('Cannot create user, email already in use');
 			} else {
-				console.log(err.message);
+				console.log('Creating user encountered an error', error);
 			}
 		}
 	};
 
-	const handleChange = (event) => {
+	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = event.target;
 
 		setFormFields({ ...formFields, [name]: value });
 	};
 
 	return (
-		<div className='sign-up-container'>
+		<SignUpContainer>
 			<h2>Don't have an account?</h2>
 			<span>Sign up with your email and password</span>
 			<form onSubmit={handleSubmit}>
@@ -91,10 +93,11 @@ const SingUpForm = () => {
 					onChange={handleChange}
 					value={confirmPassword}
 				/>
-
-				<Button type='submit'>Submit</Button>
+				<ButtonContainer>
+					<Button type='submit'>Submit</Button>
+				</ButtonContainer>
 			</form>
-		</div>
+		</SignUpContainer>
 	);
 };
 

@@ -1,15 +1,12 @@
-import { useState } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import {
-	emailSingInStart,
-	googleSignInStart,
-} from '../../store/user/user.action';
+import {emailSingInStart,googleSignInStart} from '../../store/user/user.action';
 
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.comp';
 import FormInput from '../form-input/form-input.comp';
 
-import './sign-in-form.styles.scss';
+import { ButtonsContainer, SignUpContainer } from './sign-in-form.styles'
 
 const defaultFormField = {
 	email: '',
@@ -33,38 +30,26 @@ const SingInForm = () => {
 		setFormFields(defaultFormField);
 	};
 
-	const handleSubmit = async (event) => {
+	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
 		try {
-			// await signInAuthUserWithEmailAndPassword(email, password);
 			dispatch(emailSingInStart(email, password));
 			resetFormFields();
 			navigate('/');
 		} catch (err) {
-			switch (err.code) {
-				case 'auth/wrong-password':
-					alert('Incorrect password for email!');
-					break;
-
-				case 'auth/user-not-found':
-					alert('No user associated with this email!');
-					break;
-
-				default:
-					console.log('Error signing the user: ', err.message);
-			}
+			console.log('User sign in failed:', err);
 		}
 	};
 
-	const handleChange = (event) => {
+	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = event.target;
 
 		setFormFields({ ...formFields, [name]: value });
 	};
 
 	return (
-		<div className='sign-up-container'>
+		<SignUpContainer>
 			<h2>Already have an account</h2>
 			<span>Sign in with your email and password</span>
 			<form onSubmit={handleSubmit}>
@@ -85,7 +70,7 @@ const SingInForm = () => {
 					onChange={handleChange}
 					value={password}
 				/>
-				<div className='buttons-container'>
+				<ButtonsContainer>
 					<Button type='submit'>Sign In</Button>
 					<Button
 						type='button'
@@ -93,9 +78,9 @@ const SingInForm = () => {
 						buttonType={BUTTON_TYPE_CLASSES.google}>
 						google sign in
 					</Button>
-				</div>
+				</ButtonsContainer>
 			</form>
-		</div>
+		</SignUpContainer>
 	);
 };
 

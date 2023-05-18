@@ -9,10 +9,14 @@ import {
 } from '../../store/categories/category.selector';
 import Spinner from '../../components/spinner/spinner.comp';
 
-import './category.styles.scss';
+import { CategoryContainer, CategoryTitle } from './category.styles';
+
+type CategoryRouteParams = {
+	category: string;
+};
 
 const Category = () => {
-	const { category } = useParams();
+	const { category } = useParams<keyof CategoryRouteParams>() as CategoryRouteParams;
 	const categoriesMap = useSelector(selectCategoriesMap);
 	const isLoading = useSelector(selectCategoriesIsLoading);
 	const [products, setProducts] = useState(categoriesMap[category]);
@@ -23,16 +27,16 @@ const Category = () => {
 
 	return (
 		<>
-			<h2 className='category-title'>{category.toUpperCase()}</h2>
+			<CategoryTitle>{category.toUpperCase()}</CategoryTitle>
 			{isLoading ? (
 				<Spinner />
 			) : (
-				<div className='category-container'>
+				<CategoryContainer>
 					{products &&
 						products.map((product) => (
 							<ProductCard key={product.id} product={product} />
 						))}
-				</div>
+				</CategoryContainer>
 			)}
 		</>
 	);

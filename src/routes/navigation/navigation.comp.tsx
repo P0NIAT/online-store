@@ -6,7 +6,6 @@ import { selectCurrentUser } from '../../store/user/user.selector';
 import { selectIsCartOpen } from '../../store/cart/cart.selector';
 
 import { ReactComponent as CrwnLogo } from '../../assets/logo.svg';
-// import { signOutUser } from '../../utils/firebase/firebase.utils';
 
 import CartIcon from '../../components/card-icon/cart-icon.comp';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.comp';
@@ -36,7 +35,7 @@ const Navigation = () => {
 					{!currentUser ? (
 						<NavLink to='/auth'>SIGN IN</NavLink>
 					) : (
-						<NavLink as='span' onClick={signOutUser} to='/auth'>
+						<NavLink as='span' onClick={signOutUser}>
 							SIGN OUT
 						</NavLink>
 					)}
