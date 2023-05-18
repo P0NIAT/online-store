@@ -17,7 +17,6 @@ export const cartReducer = (
 	state = CART_INITIAL_STATE,
 	action: AnyAction
 ): CartState => {
-	// const { type, payload } = action;
 
 	if (setCartItems.match(action)) {
 		return { ...state, cartItems: action.payload };

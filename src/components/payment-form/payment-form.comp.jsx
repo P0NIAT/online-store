@@ -1,8 +1,12 @@
 import { useState } from 'react';
+// import { useDispatch} from 'react-redux';
 import { useSelector } from 'react-redux';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
-import { selectCartTotal } from '../../store/cart/cart.selector';
+import {
+	selectCartTotal,
+	// selectCartItems,
+} from '../../store/cart/cart.selector';
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { BUTTON_TYPE_CLASSES } from '../button/button.comp';
 
@@ -17,6 +21,8 @@ const PaymentForm = () => {
 	const elements = useElements();
 	const amount = useSelector(selectCartTotal);
 	const currentUser = useSelector(selectCurrentUser);
+	// const allItems = useSelector(selectCartItems);
+	// const dispatch = useDispatch();
 	const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
 	const paymentHandler = async (e) => {
@@ -28,16 +34,13 @@ const PaymentForm = () => {
 
 		setIsProcessingPayment(true);
 
-		const response = await fetch(
-			'/.netlify/functions/create-payment-intent',
-			{
-				method: 'post',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ amount: amount * 100 }),
-			}
-		).then((res) => res.json());
+		const response = await fetch('/.netlify/functions/create-payment-intent', {
+			method: 'post',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ amount: amount * 100 }),
+		}).then((res) => res.json());
 
 		const {
 			paymentIntent: { client_secret },
@@ -59,9 +62,8 @@ const PaymentForm = () => {
 		} else {
 			if (paymentResult.paymentIntent.status === 'succeeded') {
 				alert('Payment Successful');
+				// dispatch(allItems([]));
 			}
-
-
 		}
 	};
 

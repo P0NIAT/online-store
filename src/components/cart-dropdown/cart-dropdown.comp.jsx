@@ -14,9 +14,9 @@ import { setIsCartOpen } from '../../store/cart/cart.action';
 import { selectIsCartOpen } from '../../store/cart/cart.selector';
 
 const CartDropdown = () => {
-	const cartItems = useSelector(selectCartItems);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const cartItems = useSelector(selectCartItems);
 	const isCartOpen = useSelector(selectIsCartOpen);
 
 	const goToCheckoutHandler = () => {

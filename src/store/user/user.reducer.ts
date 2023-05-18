@@ -21,7 +21,6 @@ export const USER_INITIAL_STATE: UserState = {
 };
 
 export const userReducer = (state = USER_INITIAL_STATE, action: AnyAction) => {
-	// const { type, payload } = action;
 
 	if (singInSuccess.match(action)) {
 		return { ...state, currentUser: action.payload };
