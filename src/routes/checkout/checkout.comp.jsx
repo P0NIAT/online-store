@@ -7,14 +7,14 @@ import {
 import CheckoutItem from '../../components/checkout-item/checkout-item.comp';
 import PaymentForm from '../../components/payment-form/payment-form.comp';
 
-import './checkout.styles.scss';
+import {CheckoutContainer} from './checkout.styles';
 
 const Checkout = () => {
 	const cartItems = useSelector(selectCartItems);
 	const cartTotal = useSelector(selectCartTotal);
 
 	return (
-		<div className='checkout-container'>
+		<CheckoutContainer>
 			<div className='checkout-header'>
 				<div className='header-block'>
 					<span>Product</span>
@@ -39,7 +39,7 @@ const Checkout = () => {
 
 			<span className='total'>Total: &#163;{cartTotal}</span>
 			<PaymentForm />
-		</div>
+		</CheckoutContainer>
 	);
 };
 

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import CategoriesPreview from '../categories-preview/categories-preview.comp';
 import Category from '../category/category.comp';
-import './shop.styles.scss';
+// import {ProductsContainer} from './shop.styles';
 
 import { fetchCategoriesStart } from '../../store/categories/category.action';
 

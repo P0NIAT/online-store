@@ -1,10 +1,12 @@
-.checkout-container {
-	width: 100%;
-	min-height: 90vh;
+import styled from 'styled-components';
+
+export const CheckoutContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	margin: 50px auto 0;
+	width: 100%;
+	min-height: 90vh;
 
 	.checkout-header {
 		width: 100%;
@@ -23,14 +25,11 @@
 		margin-left: auto;
 		font-size: 36px;
 	}
-}
 
-@media (min-width: 576px) {
-	.checkout-container {
+	@media (min-width: 576px) {
 		width: 85%;
 		.checkout-header {
 			.header-block {
-				text-transform: capitalize;
 				width: 23%;
 
 				&:last-child {
@@ -39,10 +38,8 @@
 			}
 		}
 	}
-}
 
-@media (min-width: 768px) {
-	.checkout-container {
-		width: 55%;
+	@media (min-width: 768px) {
+		width: 65%;
 	}
-}
+`;

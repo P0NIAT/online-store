@@ -6,7 +6,7 @@ import {
 	removeItemFromCart,
 } from '../../store/cart/cart.action';
 
-import './checkout-item.styles.scss';
+import { CheckoutItemContainer } from './checkout-item.styles';
 
 const CheckoutItem = ({ cartItem }) => {
 	const { name, quantity, imageUrl, price } = cartItem;
@@ -18,7 +18,7 @@ const CheckoutItem = ({ cartItem }) => {
 	const removeItemHandler = () => dispatch(removeItemFromCart(cartItems, cartItem));
 
 	return (
-		<div className='checkout-item-container'>
+		<CheckoutItemContainer>
 			<div className='image-container'>
 				<img src={imageUrl} alt={`${name}`} />
 			</div>
@@ -37,7 +37,7 @@ const CheckoutItem = ({ cartItem }) => {
 			<div className='remove-button' onClick={clearItemHandler}>
 				&#10005;
 			</div>
-		</div>
+		</CheckoutItemContainer>
 	);
 };
 
